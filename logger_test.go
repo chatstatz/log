@@ -135,3 +135,33 @@ func TestFatalIsCalledWhenErrorLogLevel(t *testing.T) {
 		logger.Fatal("fatal message should be called 2")
 	})
 }
+
+// FATALF TESTS
+
+func TestFatalfIsCalledWhenFatalLogLevel(t *testing.T) {
+	fakeExit := func(int) {
+		panic("os.Exit called")
+	}
+
+	patch := monkey.Patch(os.Exit, fakeExit)
+	defer patch.Unpatch()
+
+	assert.Panics(t, func() {
+		logger := New(Fatal, os.Stderr)
+		logger.Fatalf("fatalf error message should be called %d", 1)
+	})
+}
+
+func TestFatalfIsCalledWhenErrorLogLevel(t *testing.T) {
+	fakeExit := func(int) {
+		panic("os.Exit called")
+	}
+
+	patch := monkey.Patch(os.Exit, fakeExit)
+	defer patch.Unpatch()
+
+	assert.Panics(t, func() {
+		logger := New(Error, os.Stderr)
+		logger.Fatalf("fatalf error message should be called %d", 2)
+	})
+}

@@ -76,3 +76,13 @@ func (l *Logger) Fatal(v ...interface{}) {
 	l.println(Fatal, v...)
 	os.Exit(1)
 }
+
+// Fatalf is the same as Fatal but allows for fomatted errors.
+func (l *Logger) Fatalf(format string, v ...interface{}) {
+	if Fatal < l.level {
+		return
+	}
+
+	l.println(Fatal, fmt.Sprintf(format, v...))
+	os.Exit(1)
+}
