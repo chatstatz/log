@@ -84,6 +84,23 @@ func TestInfoIsNotCalledWhenWarningLogLevel(t *testing.T) {
 	logger.Info("info message should not be called")
 }
 
+// INFOF TESTS
+
+func TestInfofIsCalledWhenInfoLogLevel(t *testing.T) {
+	logger := New(Info, os.Stderr)
+	logger.Infof("infof message should be called %d", 1)
+}
+
+func TestInfofIsCalledWhenDebugLogLevel(t *testing.T) {
+	logger := New(Debug, os.Stderr)
+	logger.Infof("infof message should be called %d", 2)
+}
+
+func TestInfofIsNotCalledWhenWarningLogLevel(t *testing.T) {
+	logger := New(Warning, os.Stderr)
+	logger.Infof("infof message should not be called %d", 1)
+}
+
 // WARNING TESTS
 
 func TestWarnIsCalledWhenWarningLogLevel(t *testing.T) {

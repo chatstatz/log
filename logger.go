@@ -57,6 +57,15 @@ func (l *Logger) Info(v ...interface{}) {
 	l.println(Info, v...)
 }
 
+// Infof is the same as Info but allows for fomatted informational messages.
+func (l *Logger) Infof(format string, v ...interface{}) {
+	if Info < l.level {
+		return
+	}
+
+	l.println(Info, fmt.Sprintf(format, v...))
+}
+
 // Warn prints warning log messages.
 func (l *Logger) Warn(v ...interface{}) {
 	if Warning < l.level {
