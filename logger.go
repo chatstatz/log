@@ -26,12 +26,12 @@ func New(level LogLevel, out io.Writer) *Logger {
 	}
 }
 
-func (l Logger) println(level LogLevel, v ...interface{}) {
+func (l *Logger) println(level LogLevel, v ...interface{}) {
 	l.log.Println(fmt.Sprintf("%s %s", levelPrefixes[level], fmt.Sprint(v...)))
 }
 
 // Debug prints debug log messages.
-func (l Logger) Debug(v ...interface{}) {
+func (l *Logger) Debug(v ...interface{}) {
 	if Debug < l.level {
 		return
 	}
@@ -40,7 +40,7 @@ func (l Logger) Debug(v ...interface{}) {
 }
 
 // Info prints informational log messages.
-func (l Logger) Info(v ...interface{}) {
+func (l *Logger) Info(v ...interface{}) {
 	if Info < l.level {
 		return
 	}
@@ -49,7 +49,7 @@ func (l Logger) Info(v ...interface{}) {
 }
 
 // Warn prints warning log messages.
-func (l Logger) Warn(v ...interface{}) {
+func (l *Logger) Warn(v ...interface{}) {
 	if Warning < l.level {
 		return
 	}
@@ -58,7 +58,7 @@ func (l Logger) Warn(v ...interface{}) {
 }
 
 // Error prints error log messages.
-func (l Logger) Error(v ...interface{}) {
+func (l *Logger) Error(v ...interface{}) {
 	if Error < l.level {
 		return
 	}
@@ -68,7 +68,7 @@ func (l Logger) Error(v ...interface{}) {
 
 // Fatal prints fatal error log messages. It calls
 // os.Exit after logging.
-func (l Logger) Fatal(v ...interface{}) {
+func (l *Logger) Fatal(v ...interface{}) {
 	if Fatal < l.level {
 		return
 	}
