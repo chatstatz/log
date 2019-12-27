@@ -29,14 +29,17 @@ func TestNew(t *testing.T) {
 
 func TestNewPanicsWithIncorrectLogLevel(t *testing.T) {
 	tests := []struct {
-		level LogLevel
+		level  LogLevel
+		errMsg string
 	}{
-		{-1},
-		{5},
+		{-1, "logger: -1 is not a valid log level"},
+		{5, "logger: 5 is not a valid log level"},
 	}
 
 	for _, test := range tests {
-		assert.Panics(t, func() { New(test.level, os.Stderr) })
+		assert.PanicsWithValue(t, test.errMsg, func() {
+			New(test.level, os.Stderr)
+		})
 	}
 }
 
