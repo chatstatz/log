@@ -25,3 +25,7 @@ func main() {
 ```
 
 Check it out it the [Go Playground](https://play.golang.org/p/bH9G8TJ-_6U).
+
+## License
+
+This package is distributed under the terms of the [MIT](LICENSE) License.
