@@ -39,6 +39,15 @@ func (l *Logger) Debug(v ...interface{}) {
 	l.println(Debug, v...)
 }
 
+// Debugf is the same as Debug but allows for fomatted debug messages.
+func (l *Logger) Debugf(format string, v ...interface{}) {
+	if Debug < l.level {
+		return
+	}
+
+	l.println(Debug, fmt.Sprintf(format, v...))
+}
+
 // Info prints informational log messages.
 func (l *Logger) Info(v ...interface{}) {
 	if Info < l.level {

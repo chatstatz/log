@@ -55,6 +55,18 @@ func TestDebugIsNotCalledWhenInfoLogLevel(t *testing.T) {
 	logger.Debug("debug message should not be called")
 }
 
+// DEBUGF TESTS
+
+func TestDebugfIsCalledWhenDebugLogLevel(t *testing.T) {
+	logger := New(Debug, os.Stderr)
+	logger.Debugf("debugf message should be called %d", 1)
+}
+
+func TestDebugfIsNotCalledWhenInfoLogLevel(t *testing.T) {
+	logger := New(Info, os.Stderr)
+	logger.Debugf("debugf message should not be called %d", 1)
+}
+
 // INFO TESTS
 
 func TestInfoIsCalledWhenInfoLogLevel(t *testing.T) {
