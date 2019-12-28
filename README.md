@@ -14,7 +14,7 @@ import (
 )
 
 func main() {
-  logger := logger.New(logger.Debug, os.Stderr)
+  logger := logger.New("debug", os.Stderr)
 
   logger.Debug("debug message")
   logger.Info("info message")
@@ -24,7 +24,7 @@ func main() {
 }
 ```
 
-Check it out it the [Go Playground](https://play.golang.org/p/bH9G8TJ-_6U).
+Check it out it the [Go Playground](https://play.golang.org/p/tFHRLgkCdnv).
 
 ## License
 
