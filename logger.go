@@ -75,6 +75,15 @@ func (l *Logger) Warn(v ...interface{}) {
 	l.println(Warning, v...)
 }
 
+// Warnf is the same as Warn but allows for fomatted warning messages.
+func (l *Logger) Warnf(format string, v ...interface{}) {
+	if Warning < l.level {
+		return
+	}
+
+	l.println(Warning, fmt.Sprintf(format, v...))
+}
+
 // Error prints error log messages.
 func (l *Logger) Error(v ...interface{}) {
 	if Error < l.level {
