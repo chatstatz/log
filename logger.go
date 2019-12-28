@@ -13,15 +13,14 @@ type Logger struct {
 	log   *log.Logger
 }
 
-// New returns a new Logger. It panics if level is
-// less than 0 or greater than 4.
-func New(level LogLevel, out io.Writer) *Logger {
-	if level < Debug || level > Fatal {
-		panic(fmt.Sprintf("logger: %d is not a valid log level", level))
-	}
+// New returns a new Logger. It panics if an invalid
+// level is provided. Valid levels include: debug, info,
+// warning, error and fatal.
+func New(level string, out io.Writer) *Logger {
+	logLevel := GetLogLevelFromString(level)
 
 	return &Logger{
-		level: level,
+		level: logLevel,
 		log:   log.New(out, "", log.LstdFlags),
 	}
 }

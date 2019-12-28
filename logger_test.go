@@ -10,30 +10,30 @@ import (
 
 func TestNew(t *testing.T) {
 	tests := []struct {
-		level LogLevel
+		level    string
+		logLevel LogLevel
 	}{
-		{Debug},
-		{Info},
-		{Warning},
-		{Error},
-		{Fatal},
+		{"debug", Debug},
+		{"info", Info},
+		{"warning", Warning},
+		{"error", Error},
+		{"fatal", Fatal},
 	}
 
 	for _, test := range tests {
 		logger := New(test.level, os.Stderr)
-
-		assert.Equal(t, test.level, logger.level)
+		assert.Equal(t, test.logLevel, logger.level)
 	}
 
 }
 
 func TestNewPanicsWithIncorrectLogLevel(t *testing.T) {
 	tests := []struct {
-		level  LogLevel
+		level  string
 		errMsg string
 	}{
-		{-1, "logger: -1 is not a valid log level"},
-		{5, "logger: 5 is not a valid log level"},
+		{"foo", "logger: \"foo\" is not a valid log level"},
+		{"bar", "logger: \"bar\" is not a valid log level"},
 	}
 
 	for _, test := range tests {
@@ -46,126 +46,126 @@ func TestNewPanicsWithIncorrectLogLevel(t *testing.T) {
 // DEBUG TESTS
 
 func TestDebugIsCalledWhenDebugLogLevel(t *testing.T) {
-	logger := New(Debug, os.Stderr)
+	logger := New("debug", os.Stderr)
 	logger.Debug("debug message should be called 1")
 }
 
 func TestDebugIsNotCalledWhenInfoLogLevel(t *testing.T) {
-	logger := New(Info, os.Stderr)
+	logger := New("info", os.Stderr)
 	logger.Debug("debug message should not be called")
 }
 
-// DEBUGF TESTS
+// // DEBUGF TESTS
 
 func TestDebugfIsCalledWhenDebugLogLevel(t *testing.T) {
-	logger := New(Debug, os.Stderr)
+	logger := New("debug", os.Stderr)
 	logger.Debugf("debugf message should be called %d", 1)
 }
 
 func TestDebugfIsNotCalledWhenInfoLogLevel(t *testing.T) {
-	logger := New(Info, os.Stderr)
+	logger := New("info", os.Stderr)
 	logger.Debugf("debugf message should not be called %d", 1)
 }
 
 // INFO TESTS
 
 func TestInfoIsCalledWhenInfoLogLevel(t *testing.T) {
-	logger := New(Info, os.Stderr)
+	logger := New("info", os.Stderr)
 	logger.Info("info message should be called 1")
 }
 
 func TestInfoIsCalledWhenDebugLogLevel(t *testing.T) {
-	logger := New(Debug, os.Stderr)
+	logger := New("debug", os.Stderr)
 	logger.Info("info message should be called 2")
 }
 
 func TestInfoIsNotCalledWhenWarningLogLevel(t *testing.T) {
-	logger := New(Warning, os.Stderr)
+	logger := New("warning", os.Stderr)
 	logger.Info("info message should not be called")
 }
 
 // INFOF TESTS
 
 func TestInfofIsCalledWhenInfoLogLevel(t *testing.T) {
-	logger := New(Info, os.Stderr)
+	logger := New("info", os.Stderr)
 	logger.Infof("infof message should be called %d", 1)
 }
 
 func TestInfofIsCalledWhenDebugLogLevel(t *testing.T) {
-	logger := New(Debug, os.Stderr)
+	logger := New("debug", os.Stderr)
 	logger.Infof("infof message should be called %d", 2)
 }
 
 func TestInfofIsNotCalledWhenWarningLogLevel(t *testing.T) {
-	logger := New(Warning, os.Stderr)
+	logger := New("warning", os.Stderr)
 	logger.Infof("infof message should not be called %d", 1)
 }
 
 // WARN TESTS
 
 func TestWarnIsCalledWhenWarningLogLevel(t *testing.T) {
-	logger := New(Warning, os.Stderr)
+	logger := New("warning", os.Stderr)
 	logger.Warn("warn message should be called 1")
 }
 
 func TestWarnIsCalledWhenInfoLogLevel(t *testing.T) {
-	logger := New(Info, os.Stderr)
+	logger := New("info", os.Stderr)
 	logger.Warn("warn message should be called 2")
 }
 
 func TestWarnIsNotCalledWhenErrorLogLevel(t *testing.T) {
-	logger := New(Error, os.Stderr)
+	logger := New("error", os.Stderr)
 	logger.Warn("warn message should not be called")
 }
 
 // WARNF TESTS
 
 func TestWarnfIsCalledWhenWarningLogLevel(t *testing.T) {
-	logger := New(Warning, os.Stderr)
+	logger := New("warning", os.Stderr)
 	logger.Warnf("warnf message should be called %d", 1)
 }
 
 func TestWarnfIsCalledWhenInfoLogLevel(t *testing.T) {
-	logger := New(Info, os.Stderr)
+	logger := New("info", os.Stderr)
 	logger.Warnf("warnf message should be called %d", 2)
 }
 
 func TestWarnfIsNotCalledWhenErrorLogLevel(t *testing.T) {
-	logger := New(Error, os.Stderr)
+	logger := New("error", os.Stderr)
 	logger.Warnf("warnf message should not be called %d", 1)
 }
 
 // ERROR TESTS
 
 func TestErrorIsCalledWhenErrorLogLevel(t *testing.T) {
-	logger := New(Error, os.Stderr)
+	logger := New("error", os.Stderr)
 	logger.Error("error message should be called 1")
 }
 
 func TestErrorIsCalledWhenWarningLogLevel(t *testing.T) {
-	logger := New(Warning, os.Stderr)
+	logger := New("warning", os.Stderr)
 	logger.Error("error message should be called 2")
 }
 
 func TestErrorIsNotCalledWhenFatalLogLevel(t *testing.T) {
-	logger := New(Fatal, os.Stderr)
+	logger := New("fatal", os.Stderr)
 	logger.Error("error message should not be called")
 }
 
 // ERRORF TESTS
 
 func TestErrorfIsCalledWhenErrorLogLevel(t *testing.T) {
-	logger := New(Error, os.Stderr)
+	logger := New("error", os.Stderr)
 	logger.Errorf("errorf message should be called %d", 1)
 }
 
 func TestErrorfIsCalledWhenWarningLogLevel(t *testing.T) {
-	logger := New(Warning, os.Stderr)
+	logger := New("warning", os.Stderr)
 	logger.Errorf("errorf message should be called %d", 2)
 }
 
 func TestErrorfIsNotCalledWhenFatalLogLevel(t *testing.T) {
-	logger := New(Fatal, os.Stderr)
+	logger := New("fatal", os.Stderr)
 	logger.Errorf("errorf message should not be called %d", 1)
 }
 
@@ -180,7 +180,7 @@ func TestFatalIsCalledWhenFatalLogLevel(t *testing.T) {
 	defer patch.Unpatch()
 
 	assert.Panics(t, func() {
-		logger := New(Fatal, os.Stderr)
+		logger := New("fatal", os.Stderr)
 		logger.Fatal("fatal message should be called 1")
 	})
 }
@@ -194,7 +194,7 @@ func TestFatalIsCalledWhenErrorLogLevel(t *testing.T) {
 	defer patch.Unpatch()
 
 	assert.Panics(t, func() {
-		logger := New(Error, os.Stderr)
+		logger := New("error", os.Stderr)
 		logger.Fatal("fatal message should be called 2")
 	})
 }
@@ -210,7 +210,7 @@ func TestFatalfIsCalledWhenFatalLogLevel(t *testing.T) {
 	defer patch.Unpatch()
 
 	assert.Panics(t, func() {
-		logger := New(Fatal, os.Stderr)
+		logger := New("fatal", os.Stderr)
 		logger.Fatalf("fatalf error message should be called %d", 1)
 	})
 }
@@ -224,7 +224,7 @@ func TestFatalfIsCalledWhenErrorLogLevel(t *testing.T) {
 	defer patch.Unpatch()
 
 	assert.Panics(t, func() {
-		logger := New(Error, os.Stderr)
+		logger := New("error", os.Stderr)
 		logger.Fatalf("fatalf error message should be called %d", 2)
 	})
 }
