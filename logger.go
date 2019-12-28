@@ -7,6 +7,20 @@ import (
 	"os"
 )
 
+// ILogger is an interface that represents Logger.
+type ILogger interface {
+	Debug(v ...interface{})
+	Debugf(f string, v ...interface{})
+	Info(v ...interface{})
+	Infof(f string, v ...interface{})
+	Warn(v ...interface{})
+	Warnf(f string, v ...interface{})
+	Error(v ...interface{})
+	Errorf(f string, v ...interface{})
+	Fatal(v ...interface{})
+	Fatalf(f string, v ...interface{})
+}
+
 // Logger represents an active logging object that generates lines of
 // output to an io.Writer. Each logging operation makes a single call to
 // the Writer's Write method. A Logger can be used simultaneously from
