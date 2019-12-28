@@ -152,6 +152,23 @@ func TestErrorIsNotCalledWhenFatalLogLevel(t *testing.T) {
 	logger.Error("error message should not be called")
 }
 
+// ERRORF TESTS
+
+func TestErrorfIsCalledWhenErrorLogLevel(t *testing.T) {
+	logger := New(Error, os.Stderr)
+	logger.Errorf("errorf message should be called %d", 1)
+}
+
+func TestErrorfIsCalledWhenWarningLogLevel(t *testing.T) {
+	logger := New(Warning, os.Stderr)
+	logger.Errorf("errorf message should be called %d", 2)
+}
+
+func TestErrorfIsNotCalledWhenFatalLogLevel(t *testing.T) {
+	logger := New(Fatal, os.Stderr)
+	logger.Errorf("errorf message should not be called %d", 1)
+}
+
 // FATAL TESTS
 
 func TestFatalIsCalledWhenFatalLogLevel(t *testing.T) {

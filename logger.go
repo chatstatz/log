@@ -93,6 +93,15 @@ func (l *Logger) Error(v ...interface{}) {
 	l.println(Error, v...)
 }
 
+// Errorf is the same as Error but allows for formatted error messsages.
+func (l *Logger) Errorf(format string, v ...interface{}) {
+	if Error < l.level {
+		return
+	}
+
+	l.println(Error, fmt.Sprintf(format, v...))
+}
+
 // Fatal prints fatal error log messages. It calls
 // os.Exit after logging.
 func (l *Logger) Fatal(v ...interface{}) {
