@@ -7,15 +7,17 @@ import (
 	"os"
 )
 
-// Logger ...
+// Logger represents an active logging object that generates lines of
+// output to an io.Writer. Each logging operation makes a single call to
+// the Writer's Write method. A Logger can be used simultaneously from
+// multiple goroutines; it guarantees to serialize access to the Writer.
 type Logger struct {
 	level LogLevel
 	log   *log.Logger
 }
 
-// New returns a new Logger. It panics if an invalid
-// level is provided. Valid levels include: debug, info,
-// warning, error and fatal.
+// New returns a new Logger. It panics if an invalid level is provided.
+// Valid levels include: debug, info, warning, error and fatal.
 func New(level string, out io.Writer) *Logger {
 	logLevel := GetLogLevelFromString(level)
 
