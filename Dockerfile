@@ -1,6 +1,6 @@
 ARG GO_VERSION
 
-FROM golang:${GO_VERSION} as builder
+FROM golang:${GO_VERSION}
 WORKDIR /logger
 COPY . ./
 RUN make install
