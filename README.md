@@ -2,6 +2,8 @@
 
 A simple logging interface for Go.
 
+![tests](https://github.com/chatstatz/logger/workflows/tests/badge.svg)
+
 ## Usage
 
 ```go
