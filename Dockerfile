@@ -1,7 +1,7 @@
-ARG GO_VERSION
+ARG GO_VERSION=1.13
 
 FROM golang:${GO_VERSION}
-WORKDIR /logger
+WORKDIR /app
 COPY . ./
 RUN make install
 RUN make test
